@@ -8,8 +8,9 @@
 """Kenneth Reitz's GitHub Syncer
 
 This script uses the GitHub API to get a list of all forked, mirrored, public,
-and private repos in your GitHub account. If the repo already exists locally,
-it will update it via git-pull. Otherwise, it will properly clone the repo.
+and private repos in your GitHub account - and of the organizations you belong to.
+If the repo already exists locally, it will update it via git-pull. Otherwise, it 
+will properly clone the repo.
 
 It will organize your repos into the following directory structure:
 

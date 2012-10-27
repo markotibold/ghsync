@@ -2,8 +2,9 @@ ghsync: GitHub Repo Syncer
 ==========================
 
 This script uses the GitHub API to get a list of all forked, mirrored, public,
-and private repos in your GitHub account. If the repo already exists locally,
-it will update it via git-pull. Otherwise, it will properly clone the repo.
+and private repos in your GitHub account - and of the organizations you belong to.
+If the repo already exists locally, it will update it via git-pull. Otherwise, it 
+will properly clone the repo.
 
 It will organize your repos into the following directory structure:
 
@@ -47,6 +48,10 @@ you'd like to only sync repositories that belong to that organization (provided 
 to their repos), for example::
 
     $ ghsync -o acme
+
+And you can pass you github password via the commandline with '-p':
+    
+    $ ghsync -p mypassword
 
 Tips
 ----
