@@ -67,14 +67,14 @@ def run():
     # API Object
     github = GitHub(login=GITHUB_USER, password=GITHUB_PASSWORD)
 
-    # repo slots
+    # Build the list of repositories
     repos = []
 
     if not organization:
         repos.extend(github.list_repos())  # all repos owned by you, either your's originals or forked
         for org in github.list_orgs():
             repos.extend(org.list_repos())  # all repos owned by all organizations you belong to
-    else:
+    else:  # Only clone / pull repos that belong to organization
         repos.extend(github.organization(organization).list_repos())
 
     for repo in repos:
