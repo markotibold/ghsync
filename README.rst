@@ -46,6 +46,30 @@ you'd like to only sync forked repositories, for example::
     $ ghsync --only forks
 
 
+Tips
+----
+
+When using this on linux, you may want to run these commands to make sure
+you don't have to authenticate to Github on every clone/pull and enter your
+passphrase. Note that you could have also created an ssh-key with an empty 
+passprase but that obviously is not safe.
+
+    ssh-agent /bin/bash
+    ssh-add
+
+Or use this one from Github's docs:
+    
+    git config --global credential.helper cache
+    # Set git to use the credential memory cache (for 15 minutes)
+
+
+Github
+------
+
+Set your Github username:
+
+    git config --global github.user "your_user_name"
+
 Contribute
 ----------
 

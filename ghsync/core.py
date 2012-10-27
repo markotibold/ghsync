@@ -22,6 +22,7 @@ Inspired by Gisty (http://github.com/swdyh/gisty).
 """
 
 import os
+import getpass
 from clint import args
 from clint.textui import puts, colored
 from github3 import GitHub
@@ -44,12 +45,16 @@ __version__ = '0.3.1'
 
 # GitHub configurations
 GITHUB_USER = cmd('git config github.user')
-GITHUB_TOKEN = cmd('git config github.token')
-
 GHSYNC_DIR = os.environ.get('GHSYNC_DIR', '.')
 
 
 def run():
+    GITHUB_PASSWORD = args.grouped.get('-p', None)
+    if not GITHUB_PASSWORD:
+        GITHUB_PASSWORD = getpass.getpass('Type in your Github password: ')
+    else:
+        GITHUB_PASSWORD = GITHUB_PASSWORD[0]
+
     # cli flags
     upstream_on = args.flags.contains('--upstream')
     only_type = args.grouped.get('--only', False)
@@ -58,7 +63,7 @@ def run():
     os.chdir(GHSYNC_DIR)
 
     # API Object
-    github = GitHub(login=GITHUB_USER, token=GITHUB_TOKEN)
+    github = GitHub(login=GITHUB_USER, password=GITHUB_PASSWORD)
 
     # repo slots
     repos = {}
