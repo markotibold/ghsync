@@ -13,14 +13,13 @@ it will update it via git-pull. Otherwise, it will properly clone the repo.
 
 It will organize your repos into the following directory structure:
 
-repo owner 1
-            /repo name
-repo owner 2
-            /repo name
+<repo_owner>
+            /<repo_name>
 
 Requires Ian Cordasco's github3.py (http://pypi.python.org/pypi/github3.py).
 
 Inspired by Gisty (http://github.com/swdyh/gisty).
+
 """
 
 import os
