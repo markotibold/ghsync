@@ -49,10 +49,6 @@ to their repos), for example::
 
     $ ghsync -o acme
 
-And you can pass you github password via the commandline with '-p':
-    
-    $ ghsync -p mypassword
-
 Tips
 ----
 

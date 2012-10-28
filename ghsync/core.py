@@ -53,11 +53,7 @@ GHSYNC_DIR = os.environ.get('GHSYNC_DIR', '.')
 
 def run():
     # cli flags
-    GITHUB_PASSWORD = args.grouped.get('-p', None)
-    if not GITHUB_PASSWORD:
-        GITHUB_PASSWORD = getpass.getpass('Type in your Github password: ')
-    else:
-        GITHUB_PASSWORD = GITHUB_PASSWORD[0]
+    GITHUB_PASSWORD = getpass.getpass('Type in your Github password: ')
 
     upstream_on = args.flags.contains('--upstream')
     organization = args.grouped.get('-o', None)
