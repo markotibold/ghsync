@@ -12,7 +12,7 @@ if sys.argv[-1] == "publish":
     os.system('python setup.py sdist upload')
     sys.exit()
 
-required = ['clint', 'requests', 'github3.py']
+required = ['clint', 'requests', 'github3.py==0.1b1']
 
 
 setup(
