@@ -24,6 +24,7 @@ Inspired by Gisty (http://github.com/swdyh/gisty).
 """
 
 import os
+import subprocess
 import getpass
 from clint import args
 from clint.textui import puts, colored
@@ -71,11 +72,11 @@ def run():
     repos = []
 
     if not organization:
-        repos.extend(github.list_repos())  # all repos owned by you, either your's originals or forked
-        for org in github.list_orgs():
-            repos.extend(org.list_repos())  # all repos owned by all organizations you belong to
+        repos.extend(github.iter_repos())  # all repos owned by you, either your's originals or forked
+        for org in github.iter_orgs():
+            repos.extend(org.iter_repos())  # all repos owned by all organizations you belong to
     else:  # Only clone / pull repos that belong to organization
-        repos.extend(github.organization(organization).list_repos())
+        repos.extend(github.organization(organization).iter_repos())
 
     for repo in repos:
 
@@ -97,15 +98,15 @@ def run():
 
             os.chdir(repo.name)
             puts(colored.red('Updating repo: {0.name}'.format(repo)))
-            os.system('git pull')
+            subprocess.call('git pull', shell=True)
 
             if is_fork and upstream_on:
                 #print repo.__dict__
                 puts(colored.red(
                     'Adding upstream: {0.parent}'.format(repo)))
-                os.system('git remote add upstream {0}'.format(
+                subprocess.call('git remote add upstream {0}'.format(
                     repo.parent.git_url
-                    ))
+                    ), shell=True)
 
             os.chdir('..')
 
@@ -114,7 +115,7 @@ def run():
                 puts(colored.red(
                 'Cloning private repo: {repo.name}'.format(
                     repo=repo)))
-                os.system('git clone {0}'.format(repo.ssh_url))
+                subprocess.call('git clone {0}'.format(repo.ssh_url), shell=True)
                 print('git clone {0}'.format(repo.ssh_url))
 
                 if is_fork and upstream_on:
@@ -122,15 +123,15 @@ def run():
                     puts(colored.red('Adding upstream: {0}'.format(
                         repo.parent.name
                         )))
-                    os.system('git remote add upstream {0}'.format(
+                    subprocess.call('git remote add upstream {0}'.format(
                         repo.parent.git_url
-                        ))
+                        ), shell=True)
                     os.chdir('..')
 
             else:
                 puts(colored.red('Cloning repo: {repo.name}'.format(
                     repo=repo)))
-                os.system('git clone {0}'.format(repo.git_url))
+                subprocess.call('git clone {0}'.format(repo.git_url), shell=True)
                 print ('git clone {0}'.format(repo.git_url))
 
         # return to base
