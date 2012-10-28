@@ -24,11 +24,12 @@ Inspired by Gisty (http://github.com/swdyh/gisty).
 """
 
 import os
+import sys
 import subprocess
 import getpass
 from clint import args
 from clint.textui import puts, colored
-from github3 import GitHub
+from github3 import GitHub, GitHubError
 
 try:
     # check_output is new in 2.7.
@@ -63,7 +64,10 @@ def run():
 
     # API Object
     github = GitHub(login=GITHUB_USER, password=GITHUB_PASSWORD)
-
+    try:
+        github.iter_repos().next()
+    except GitHubError:
+        sys.exit('Authentication failed')
     # Build the list of repositories
     repos = []
 
@@ -74,8 +78,8 @@ def run():
     else:  # Only clone / pull repos that belong to organization
         repos.extend(github.organization(organization).iter_repos())
 
-    for repo in repos:
-
+    for i, repo in enumerate(repos):
+        print i + 1
         # create repo_owner directory (safely)
         try:
             os.makedirs(repo.owner.login)
